@@ -20,7 +20,8 @@ Thumbs.db
 
 # Netlify CLI runtime artifacts
 deno.lock
-.netlify/plugins/
+.netlify/*
+!.netlify/state.json
 
 # Playwright test results
 test-results/
