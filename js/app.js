@@ -37,7 +37,9 @@ function refreshHeader() {
 function resetForm() {
   const form = document.getElementById('entry-form');
   form.reset();
-  form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+  form.querySelectorAll('[aria-invalid]').forEach((el) => {
+    el.removeAttribute('aria-invalid');
+  });
   form.querySelectorAll('.field-error').forEach((el) => {
     el.hidden = true;
     el.textContent = '';
@@ -85,7 +87,9 @@ function validateForm() {
   const severityError = document.getElementById('severity-error');
   const severityChecked = document.querySelector('input[name="severity"]:checked');
 
-  [symptomInput, datetimeInput].forEach((el) => el.removeAttribute('aria-invalid'));
+  [symptomInput, datetimeInput].forEach((el) => {
+    el.removeAttribute('aria-invalid');
+  });
   [symptomError, datetimeError, severityError].forEach((el) => {
     el.hidden = true;
     el.textContent = '';
@@ -277,8 +281,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Change key ──
   document.getElementById('change-key-btn').addEventListener('click', () => {
+    const existingKey = localStorage.getItem(API_KEY_STORAGE);
     localStorage.removeItem(API_KEY_STORAGE);
     showGate();
+    if (existingKey) {
+      document.getElementById('api-key-input').value = existingKey;
+    }
   });
 
   // ── Entry form ──

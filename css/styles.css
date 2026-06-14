@@ -352,10 +352,12 @@ textarea[aria-invalid='true'] {
    SEVERITY FIELDSET
 ════════════════════════════════════════════════ */
 .severity-fieldset {
-  border: none;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
 }
 
 .severity-fieldset legend {
@@ -370,16 +372,17 @@ textarea[aria-invalid='true'] {
 .severity-options {
   clear: both;
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-3);
+  gap: var(--sp-2);
 }
 
 .severity-option {
   align-items: center;
   cursor: pointer;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--sp-1);
+  min-inline-size: 0;
   position: relative; /* Contain the absolutely-positioned radio */
 }
 
@@ -458,6 +461,18 @@ textarea[aria-invalid='true'] {
   color: var(--color-severity-high);
 }
 
+@media (width >= 640px) {
+  .severity-pip {
+    block-size: 3.25rem;
+    font-size: 1.125rem;
+    inline-size: 3.25rem;
+  }
+
+  .severity-label {
+    font-size: 0.75rem;
+  }
+}
+
 /* ═══════════════════════════════════════════════
    API KEY GATE
 ════════════════════════════════════════════════ */
@@ -465,8 +480,10 @@ textarea[aria-invalid='true'] {
   align-items: center;
   background-color: var(--color-bg);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   min-block-size: 100dvh;
+  overflow-y: auto;
   padding: var(--sp-6);
 }
 
@@ -517,6 +534,12 @@ textarea[aria-invalid='true'] {
   text-align: start;
 }
 
+#api-key-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
 /* ═══════════════════════════════════════════════
    SITE HEADER
 ════════════════════════════════════════════════ */
@@ -548,6 +571,7 @@ textarea[aria-invalid='true'] {
   font-family: var(--font-heading);
   font-size: 1.0625rem;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .header-actions {
@@ -578,6 +602,32 @@ textarea[aria-invalid='true'] {
 @media (width >= 560px) {
   .btn-label {
     display: inline;
+  }
+}
+
+@media (width < 560px) {
+  .header-inner {
+    gap: var(--sp-2);
+  }
+
+  .header-actions {
+    gap: var(--sp-1);
+  }
+
+  #prepare-btn {
+    block-size: 2.5rem;
+    inline-size: 2.5rem;
+    padding: 0;
+  }
+
+  .brand-name {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (width < 480px) {
+  .container {
+    padding-inline: var(--sp-4);
   }
 }
 
@@ -928,6 +978,12 @@ textarea[aria-invalid='true'] {
 .btn-link-danger:focus-visible {
   color: var(--color-danger);
   outline-color: var(--color-danger);
+}
+
+@media (width < 500px) {
+  .entry-symptom {
+    flex-basis: 100%;
+  }
 }
 
 /* ═══════════════════════════════════════════════

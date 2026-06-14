@@ -91,7 +91,13 @@
               aria-label="0 entries logged"
               >0</span
             >
-            <button id="prepare-btn" type="button" class="btn btn-primary" disabled>
+            <button
+              id="prepare-btn"
+              type="button"
+              class="btn btn-primary"
+              title="Prepare appointment summary"
+              disabled
+            >
               <i data-lucide="file-text" aria-hidden="true"></i>
               <span class="btn-label">Prepare My Summary</span>
             </button>
@@ -100,6 +106,7 @@
               type="button"
               class="btn btn-ghost btn-icon"
               aria-label="Clear all entries"
+              title="Clear all entries"
               disabled
             >
               <i data-lucide="trash-2" aria-hidden="true"></i>
@@ -109,6 +116,7 @@
               type="button"
               class="btn btn-ghost btn-icon"
               aria-label="Change API key"
+              title="Change API key"
             >
               <i data-lucide="key-round" aria-hidden="true"></i>
             </button>
@@ -240,7 +248,11 @@
                 <span id="datetime-error" class="field-error" role="alert" hidden></span>
               </div>
 
-              <fieldset id="severity-fieldset" aria-describedby="severity-error">
+              <fieldset
+                id="severity-fieldset"
+                class="severity-fieldset"
+                aria-describedby="severity-error"
+              >
                 <legend>
                   Severity
                   <span class="required-mark" aria-hidden="true">*</span>
@@ -307,8 +319,10 @@
             </p>
             <p class="empty-tip">
               <i data-lucide="lightbulb" aria-hidden="true"></i>
-              <strong>Try logging:</strong> A recurring headache, three weeks of fatigue, or that
-              digestive issue that started after a medication change.
+              <span
+                ><strong>Try logging:</strong> A recurring headache, three weeks of fatigue, or that
+                digestive issue that started after a medication change.</span
+              >
             </p>
           </div>
 

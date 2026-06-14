@@ -23,6 +23,34 @@ A lightweight, privacy-first tool for logging symptoms over time and generating 
 
 Your symptom data is stored exclusively in your browser via `localStorage`. Your Anthropic API key is also stored locally and sent only to Anthropic's servers to generate summaries — never to this site.
 
+## Development
+
+```bash
+git clone https://github.com/you/symptom-timeline.git
+cd symptom-timeline
+npm install
+npx serve .        # open http://localhost:3000
+```
+
+Lint and test:
+
+```bash
+npm run lint:js    # ESLint
+npm run lint:css   # Stylelint
+npm run lint:html  # html-validate
+npm run format     # Prettier
+npm test           # Playwright smoke tests
+```
+
+Pre-commit hooks run lint + format automatically via Husky.
+
 ## Tech
 
 Vanilla HTML, CSS, and JavaScript. No frameworks, no build step, no server.
+
+- **Claude API** (`claude-sonnet-4-20250514`) — appointment summary generation
+- **Lucide Icons** — via CDN
+- **Playwright** — smoke tests
+- **ESLint / Stylelint / Prettier** — code quality
+- **Husky** — pre-commit hooks
+- **Netlify** — deployment
