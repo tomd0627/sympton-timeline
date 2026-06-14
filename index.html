@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Symptom Timeline — Log symptoms. Walk into appointments prepared.</title>
+    <meta
+      name="description"
+      content="Log symptoms over time and generate a structured, AI-powered summary before your next medical appointment. Symptom Timeline helps you walk in prepared."
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Symptom Timeline" />
+    <meta
+      property="og:description"
+      content="Build your health timeline. Walk into appointments prepared. Log symptoms and generate a structured AI summary for your doctor."
+    />
+    <meta
+      property="og:image"
+      content="https://spiffy-rabanadas-b312a6.netlify.app/assets/og-image.png"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#6d28d9" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- ═══════════════════════════════════
+         APP HEADER (hidden until key saved)
+    ════════════════════════════════════ -->
+    <div id="app" hidden>
+      <header class="site-header">
+        <div class="container header-inner">
+          <div class="brand">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 52 52"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <rect width="52" height="52" rx="14" fill="#EDE9FE" />
+              <path
+                d="M10 30 L19 21 L25 27 L34 15 L42 21"
+                stroke="#6D28D9"
+                stroke-width="2.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                fill="none"
+              />
+              <circle cx="19" cy="21" r="2.75" fill="#6D28D9" />
+              <circle cx="25" cy="27" r="2.75" fill="#6D28D9" />
+              <circle cx="34" cy="15" r="2.75" fill="#6D28D9" />
+            </svg>
+            <span class="brand-name">Symptom Timeline</span>
+          </div>
+          <div class="header-actions">
+            <span
+              id="entry-count-badge"
+              class="entry-badge"
+              role="status"
+              aria-atomic="true"
+              aria-label="0 entries logged"
+              >0</span
+            >
+            <button id="prepare-btn" type="button" class="btn btn-primary" disabled>
+              <i data-lucide="file-text" aria-hidden="true"></i>
+              <span class="btn-label">Prepare My Summary</span>
+            </button>
+            <button
+              id="clear-btn"
+              type="button"
+              class="btn btn-ghost btn-icon"
+              aria-label="Clear all entries"
+              disabled
+            >
+              <i data-lucide="trash-2" aria-hidden="true"></i>
+            </button>
+            <button
+              id="change-key-btn"
+              type="button"
+              class="btn btn-ghost btn-icon"
+              aria-label="Change API key"
+            >
+              <i data-lucide="key-round" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+    </div>
+    <!-- /#app -->
+
+    <!-- ═══════════════════════════════════
+         MAIN — always in DOM; switches
+         between gate and app layout
+    ════════════════════════════════════ -->
+    <main id="main-content" tabindex="-1">
+      <!-- ─── API Key Gate ───────────────────────── -->
+      <div id="api-key-gate" class="gate">
+        <div class="gate-card">
+          <div class="gate-logo" aria-hidden="true">
+            <svg
+              width="52"
+              height="52"
+              viewBox="0 0 52 52"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <rect width="52" height="52" rx="14" fill="#EDE9FE" />
+              <path
+                d="M10 30 L19 21 L25 27 L34 15 L42 21"
+                stroke="#6D28D9"
+                stroke-width="2.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                fill="none"
+              />
+              <circle cx="19" cy="21" r="2.75" fill="#6D28D9" />
+              <circle cx="25" cy="27" r="2.75" fill="#6D28D9" />
+              <circle cx="34" cy="15" r="2.75" fill="#6D28D9" />
+            </svg>
+          </div>
+          <h1 class="gate-heading">Symptom Timeline</h1>
+          <p class="gate-tagline">Build your health timeline. Walk into appointments prepared.</p>
+          <p class="gate-description">
+            Enter your
+            <a href="https://console.anthropic.com" target="_blank" rel="noopener noreferrer"
+              >Anthropic API key</a
+            >
+            to get started. Your key is stored only in your browser and never sent to this site's
+            servers.
+          </p>
+          <form id="api-key-form" novalidate>
+            <div class="form-field">
+              <label for="api-key-input">Anthropic API Key</label>
+              <input
+                type="password"
+                id="api-key-input"
+                name="api-key"
+                placeholder="sk-ant-api03-…"
+                autocomplete="off"
+                aria-describedby="api-key-hint api-key-error"
+              />
+              <span id="api-key-hint" class="field-hint"
+                >Your key is saved locally in this browser and never transmitted to this site.</span
+              >
+              <span id="api-key-error" class="field-error" role="alert" hidden></span>
+            </div>
+            <button type="submit" id="save-key-btn" class="btn btn-primary btn-full">
+              <i data-lucide="lock" aria-hidden="true"></i>
+              Get Started
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ─── App Layout (hidden until key saved) ── -->
+      <div class="container layout" id="main-layout" hidden>
+        <!-- Left: Form + Timeline -->
+        <section class="timeline-column" aria-label="Symptom log">
+          <!-- Add / Edit Entry Form -->
+          <div class="form-card">
+            <h2 class="card-heading">
+              <i data-lucide="plus-circle" aria-hidden="true"></i>
+              <span id="form-heading-text">Log a Symptom</span>
+            </h2>
+            <form id="entry-form" novalidate>
+              <div class="form-row">
+                <div class="form-field form-field-grow">
+                  <label for="symptom-input">
+                    Symptom
+                    <span class="required-mark" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="symptom-input"
+                    name="symptom"
+                    placeholder="e.g., headache, nausea, fatigue"
+                    required
+                    aria-required="true"
+                    aria-describedby="symptom-error"
+                  />
+                  <span id="symptom-error" class="field-error" role="alert" hidden></span>
+                </div>
+                <div class="form-field">
+                  <label for="category-input">Category</label>
+                  <select id="category-input" name="category">
+                    <option value="pain">Pain</option>
+                    <option value="fatigue">Fatigue</option>
+                    <option value="digestive">Digestive</option>
+                    <option value="respiratory">Respiratory</option>
+                    <option value="mood">Mood</option>
+                    <option value="other" selected>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="datetime-input">
+                  Date &amp; Time
+                  <span class="required-mark" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="datetime-local"
+                  id="datetime-input"
+                  name="datetime"
+                  required
+                  aria-required="true"
+                  aria-describedby="datetime-error"
+                />
+                <span id="datetime-error" class="field-error" role="alert" hidden></span>
+              </div>
+
+              <fieldset id="severity-fieldset" aria-describedby="severity-error">
+                <legend>
+                  Severity
+                  <span class="required-mark" aria-hidden="true">*</span>
+                </legend>
+                <div class="severity-options">
+                  <label class="severity-option">
+                    <input type="radio" name="severity" value="1" />
+                    <span class="severity-pip sev-1" aria-hidden="true">1</span>
+                    <span class="severity-label">Mild</span>
+                  </label>
+                  <label class="severity-option">
+                    <input type="radio" name="severity" value="2" />
+                    <span class="severity-pip sev-2" aria-hidden="true">2</span>
+                    <span class="severity-label">Mild–Mod</span>
+                  </label>
+                  <label class="severity-option">
+                    <input type="radio" name="severity" value="3" />
+                    <span class="severity-pip sev-3" aria-hidden="true">3</span>
+                    <span class="severity-label">Moderate</span>
+                  </label>
+                  <label class="severity-option">
+                    <input type="radio" name="severity" value="4" />
+                    <span class="severity-pip sev-4" aria-hidden="true">4</span>
+                    <span class="severity-label">Mod–Severe</span>
+                  </label>
+                  <label class="severity-option">
+                    <input type="radio" name="severity" value="5" />
+                    <span class="severity-pip sev-5" aria-hidden="true">5</span>
+                    <span class="severity-label">Severe</span>
+                  </label>
+                </div>
+                <span id="severity-error" class="field-error" role="alert" hidden></span>
+              </fieldset>
+
+              <div class="form-field">
+                <label for="notes-input">Notes</label>
+                <textarea
+                  id="notes-input"
+                  name="notes"
+                  rows="3"
+                  placeholder="Triggers, context, associated symptoms, or anything else your doctor should know…"
+                ></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" id="entry-submit-btn" class="btn btn-primary">
+                  <i data-lucide="plus" aria-hidden="true"></i>
+                  <span id="submit-btn-label">Add to Timeline</span>
+                </button>
+                <button type="button" id="edit-cancel-btn" class="btn btn-ghost" hidden>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Empty State -->
+          <div id="empty-state" class="empty-state">
+            <i data-lucide="calendar-heart" class="empty-icon" aria-hidden="true"></i>
+            <h2 class="empty-heading">Your timeline is empty</h2>
+            <p class="empty-body">
+              Start logging symptoms above. Each entry helps build a clearer picture of your health
+              over time — onset, patterns, severity, and triggers.
+            </p>
+            <p class="empty-tip">
+              <i data-lucide="lightbulb" aria-hidden="true"></i>
+              <strong>Try logging:</strong> A recurring headache, three weeks of fatigue, or that
+              digestive issue that started after a medication change.
+            </p>
+          </div>
+
+          <!-- Few Entries Warning (1–2 entries) -->
+          <div id="few-entries-warning" class="info-banner" role="note" hidden>
+            <i data-lucide="info" aria-hidden="true"></i>
+            <p>
+              You have fewer than 3 entries. Adding more context will produce a more useful
+              appointment summary.
+            </p>
+          </div>
+
+          <!-- Timeline List -->
+          <ul
+            id="timeline-list"
+            class="timeline"
+            role="list"
+            aria-label="Logged symptom entries, most recent first"
+            hidden
+          >
+            <!-- Injected by renderer.js -->
+          </ul>
+        </section>
+
+        <!-- Right: Appointment Summary -->
+        <aside id="summary-panel" class="summary-panel" aria-label="Appointment summary" hidden>
+          <!-- Loading Skeleton -->
+          <div id="summary-loading" role="status" class="summary-loading" hidden>
+            <p class="sr-only">Generating your appointment summary…</p>
+            <div class="skeleton sk-heading"></div>
+            <div class="skeleton sk-line"></div>
+            <div class="skeleton sk-line sk-short"></div>
+            <div class="skeleton sk-heading sk-mt"></div>
+            <div class="skeleton sk-line"></div>
+            <div class="skeleton sk-line"></div>
+            <div class="skeleton sk-line sk-short"></div>
+            <div class="skeleton sk-heading sk-mt"></div>
+            <div class="skeleton sk-line sk-short"></div>
+            <div class="skeleton sk-heading sk-mt"></div>
+            <div class="skeleton sk-line"></div>
+            <div class="skeleton sk-line"></div>
+            <div class="skeleton sk-line sk-short"></div>
+          </div>
+
+          <!-- Error State -->
+          <div id="summary-error" class="summary-error-state" hidden>
+            <i data-lucide="alert-circle" class="error-icon" aria-hidden="true"></i>
+            <h2 class="error-heading">Summary generation failed</h2>
+            <p id="summary-error-message" class="error-body"></p>
+            <button id="retry-btn" type="button" class="btn btn-primary">
+              <i data-lucide="refresh-cw" aria-hidden="true"></i>
+              Try Again
+            </button>
+          </div>
+
+          <!-- Summary Content -->
+          <div id="summary-content" class="summary-content" hidden>
+            <div class="summary-top-bar">
+              <h2 class="summary-title">Appointment Summary</h2>
+              <button
+                type="button"
+                class="btn btn-ghost btn-sm"
+                id="print-btn"
+                onclick="window.print()"
+              >
+                <i data-lucide="printer" aria-hidden="true"></i>
+                Print / PDF
+              </button>
+            </div>
+
+            <section class="summary-section" aria-labelledby="heading-overview">
+              <h3 class="summary-section-heading" id="heading-overview">Overview</h3>
+              <div id="overview-content" class="summary-section-body"></div>
+            </section>
+
+            <section class="summary-section" aria-labelledby="heading-patterns">
+              <h3 class="summary-section-heading" id="heading-patterns">Pattern Analysis</h3>
+              <ul id="patterns-list" class="summary-list" role="list"></ul>
+            </section>
+
+            <section class="summary-section" aria-labelledby="heading-progression">
+              <h3 class="summary-section-heading" id="heading-progression">Severity Progression</h3>
+              <div id="progression-content" class="summary-section-body"></div>
+            </section>
+
+            <section class="summary-section" aria-labelledby="heading-questions">
+              <h3 class="summary-section-heading" id="heading-questions">
+                Questions to Ask Your Doctor
+              </h3>
+              <ol id="questions-list" class="summary-questions-list"></ol>
+            </section>
+          </div>
+        </aside>
+      </div>
+      <!-- /#main-layout -->
+    </main>
+
+    <!-- ═══════════════════════════════════
+         CLEAR ALL CONFIRMATION DIALOG
+    ════════════════════════════════════ -->
+    <div
+      id="clear-dialog"
+      class="dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="clear-dialog-title"
+      hidden
+    >
+      <div class="dialog-card">
+        <i data-lucide="alert-triangle" class="dialog-icon" aria-hidden="true"></i>
+        <h2 id="clear-dialog-title" class="dialog-title">Clear all entries?</h2>
+        <p class="dialog-body">
+          This will permanently delete all your logged symptoms and cannot be undone. Any generated
+          summary will also be removed.
+        </p>
+        <div class="dialog-actions">
+          <button id="clear-cancel-btn" type="button" class="btn btn-ghost">Cancel</button>
+          <button id="clear-confirm-btn" type="button" class="btn btn-danger">
+            <i data-lucide="trash-2" aria-hidden="true"></i>
+            Yes, clear all
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="dialog-backdrop" class="dialog-backdrop" aria-hidden="true" hidden></div>
+
+    <!-- Scripts loaded in dependency order -->
+    <script src="js/entries.js" defer></script>
+    <script src="js/renderer.js" defer></script>
+    <script src="js/summarizer.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </body>
+</html>
