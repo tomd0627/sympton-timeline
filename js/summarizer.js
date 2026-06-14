@@ -1,13 +1,13 @@
 /* exported generateSummary */
 
 const CLAUDE_API_URL = 'https://api.anthropic.com/v1/messages';
-const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
+const CLAUDE_MODEL = 'claude-sonnet-4-6';
 
 const SYSTEM_PROMPT =
   'You are a clinical documentation assistant helping a patient prepare for a medical appointment. ' +
   'Analyze their symptom log and produce a structured summary a doctor can use in 3 minutes. ' +
   'Focus on patterns, onset, severity progression, and correlations. ' +
-  'Return only valid JSON matching the defined schema. ' +
+  'Return only valid JSON matching the defined schema. No markdown, no code fences, no preamble. ' +
   'Never diagnose, never recommend treatment, never alarm the patient. ' +
   'Use plain, calm language.';
 
@@ -73,7 +73,12 @@ function generateSummary(entries) {
       .then((data) => {
         let parsed;
         try {
-          parsed = JSON.parse(data.content[0].text);
+          const block = data?.content?.[0];
+          if (!block || block.type !== 'text' || !block.text) throw new SyntaxError('empty');
+          let text = block.text.trim();
+          const fenceMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+          if (fenceMatch) text = fenceMatch[1];
+          parsed = JSON.parse(text);
         } catch (parseError) {
           throw new Error('PARSE_ERROR', { cause: parseError });
         }

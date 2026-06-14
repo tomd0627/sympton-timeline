@@ -206,7 +206,8 @@ function hideSummaryPanel() {
 const ERROR_MESSAGES = {
   NO_ENTRIES: 'Add at least one entry before generating a summary.',
   NO_KEY: 'No API key found. Please enter your key to continue.',
-  INVALID_KEY: 'Your API key was rejected. Verify it at console.anthropic.com and update it.',
+  INVALID_KEY:
+    'Your API key was rejected. Verify it is active and your account has billing credits in the Anthropic console.',
   NETWORK_ERROR: 'Could not reach the Claude API. Check your internet connection and try again.',
   PARSE_ERROR: 'The AI response could not be parsed. Please try again — this is usually transient.',
 };
