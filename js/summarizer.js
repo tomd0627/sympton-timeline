@@ -9,7 +9,9 @@ const SYSTEM_PROMPT =
   'Focus on patterns, onset, severity progression, and correlations. ' +
   'Return only valid JSON matching the defined schema. No markdown, no code fences, no preamble. ' +
   'Never diagnose, never recommend treatment, never alarm the patient. ' +
-  'Use plain, calm language.';
+  'Use plain, calm language. ' +
+  'The "questions" field must contain questions the PATIENT should proactively raise with their doctor — not questions the doctor would ask the patient. ' +
+  'Think: what should the patient advocate for, request clarification on, or bring up unprompted?';
 
 function buildUserPrompt(entries) {
   const serialized = entries.map((e) => ({
@@ -29,6 +31,8 @@ function buildUserPrompt(entries) {
     '  "patterns": [{ "observation": string, "detail": string }],\n' +
     '  "progression": { "trend": "worsening|improving|stable", "detail": string },\n' +
     '  "questions": [{ "question": string, "rationale": string }]\n' +
+    '\nFor "questions": generate questions the PATIENT should ask their doctor (e.g. "Should I keep a trigger diary?", "Could this be related to X?"). ' +
+    'Do NOT generate questions the doctor would ask the patient.\n' +
     '}'
   );
 }

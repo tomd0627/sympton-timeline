@@ -8,7 +8,7 @@ A lightweight, privacy-first tool for logging symptoms over time and generating 
 
 - **Timeline journal** — log symptoms with severity, category, date/time, and notes
 - **Grouped by week** — chronological view with weekly groupings
-- **AI appointment summary** — Claude generates a structured narrative with pattern analysis, severity progression, and suggested questions for your doctor
+- **AI appointment summary** — Claude generates a structured narrative with pattern analysis, severity progression, and questions to raise with your doctor
 - **Print-ready** — formatted for printing or saving as a PDF
 - **Offline-first** — all entries persist in your browser's localStorage
 
