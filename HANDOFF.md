@@ -44,7 +44,7 @@ Full pipeline: ESLint → Stylelint → html-validate → Prettier → 8 Playwri
 netlify deploy --prod --dir .
 ```
 
-Or push `master` to the connected Netlify remote if CI is wired. After deploy, update `og:image` in `index.html` from the relative path `assets/og-image.png` to the absolute deployed URL (e.g. `https://symptom-timeline.netlify.app/assets/og-image.png`).
+Or push `master` to the connected Netlify remote if CI is wired. After deploy, update `og:image` in `index.html` from the relative path `assets/og-image.png` to the absolute deployed URL (e.g. `https://tomdeluca-symptom.netlify.app/assets/og-image.png`).
 
 ### 7b — Recruiter Audit Checklist
 
@@ -92,7 +92,7 @@ Or push to the `master` branch if Netlify CI is connected.
 ## What Was Just Completed (7c — Deploy)
 
 **Deployed to Netlify production:**
-- URL: https://spiffy-rabanadas-b312a6.netlify.app
+- URL: https://tomdeluca-symptom.netlify.app
 - Site ID: `d1ab6fce-1339-4174-afb9-96f1fd233aef` (in `.netlify/state.json`)
 - Updated `og:image` to absolute URL pointing to the deployed domain
 - Added `.netlify/plugins/` to `.gitignore`
@@ -108,4 +108,4 @@ Or push to the `master` branch if Netlify CI is connected.
 6. Pre-commit tooling (Husky, ESLint, Stylelint, Prettier, html-validate) ✓
 7. Recruiter audit + Lighthouse 100/100/100/100 + deploy ✓
 
-**Live at:** https://spiffy-rabanadas-b312a6.netlify.app
+**Live at:** https://tomdeluca-symptom.netlify.app

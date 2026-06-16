@@ -131,4 +131,4 @@ sympton-timeline/
 6. Pre-commit tooling (Husky, ESLint, Stylelint, Prettier, html-validate) — **DONE**
 7. Recruiter audit + Lighthouse 100/100/100/100 + deploy — **DONE**
 
-**Live at:** https://spiffy-rabanadas-b312a6.netlify.app
+**Live at:** https://tomdeluca-symptom.netlify.app
