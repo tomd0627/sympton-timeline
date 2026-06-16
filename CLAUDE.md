@@ -126,7 +126,9 @@ sympton-timeline/
 1. Pre-code declaration — **DONE**
 2. Core HTML/CSS scaffold — **DONE**
 3. JS functionality (entries CRUD, localStorage, timeline render) — **DONE**
-4. Claude API integration (summarizer) — **next**
-5. Playwright smoke tests
-6. Pre-commit tooling (Husky, ESLint, Stylelint, Prettier)
-7. Recruiter audit + pre-deploy audit (Lighthouse CLI)
+4. Claude API integration (summarizer) — **DONE**
+5. Playwright smoke tests — **DONE**
+6. Pre-commit tooling (Husky, ESLint, Stylelint, Prettier, html-validate) — **DONE**
+7. Recruiter audit + Lighthouse 100/100/100/100 + deploy — **DONE**
+
+**Live at:** https://spiffy-rabanadas-b312a6.netlify.app
