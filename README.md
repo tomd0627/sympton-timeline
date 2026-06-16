@@ -48,7 +48,7 @@ Pre-commit hooks run lint + format automatically via Husky.
 
 Vanilla HTML, CSS, and JavaScript. No frameworks, no build step, no server.
 
-- **Claude API** (`claude-sonnet-4-20250514`) — appointment summary generation
+- **Claude API** (`claude-sonnet-4-6`) — appointment summary generation
 - **Lucide Icons** — via CDN
 - **Playwright** — smoke tests
 - **ESLint / Stylelint / Prettier** — code quality

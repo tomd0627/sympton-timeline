@@ -10,7 +10,7 @@ Symptom Timeline is an AI-powered medical appointment prep tool. Users log sympt
 
 - **Vanilla HTML/CSS/JS** — no framework
 - **localStorage** — all data persists client-side
-- **Claude API** (`claude-sonnet-4-20250514`) — appointment summary generation
+- **Claude API** (`claude-sonnet-4-6`) — appointment summary generation
 - **Lucide Icons** via CDN
 - **Netlify** — deployment target
 
